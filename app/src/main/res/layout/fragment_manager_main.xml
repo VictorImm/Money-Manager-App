@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ManagerMain">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/banner_gradient"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rect_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="date today"
+            android:textColor="@color/white_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/banner_gradient" />
+
+        <TextView
+            android:id="@+id/text_rp_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Budget Left"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white_2"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="@+id/progressBar" />
+
+        <TextView
+            android:id="@+id/text_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect_white_outline"
+            android:text="left"
+            android:textColor="@color/white_2"
+            app:layout_constraintBottom_toBottomOf="@+id/text_rp_left"
+            app:layout_constraintStart_toEndOf="@+id/text_rp_left"
+            app:layout_constraintTop_toTopOf="@+id/text_rp_left" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:scaleY="4"
+            app:layout_constraintBottom_toBottomOf="@+id/banner_gradient"
+            app:layout_constraintEnd_toEndOf="@+id/banner_gradient"
+            app:layout_constraintStart_toStartOf="@+id/banner_gradient"
+            app:layout_constraintTop_toBottomOf="@+id/text_date" />
+
+        <TextView
+            android:id="@+id/text_spent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Budget spent"
+            android:textStyle="bold"
+            android:textColor="@color/white_2"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+        <TextView
+            android:id="@+id/of"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="of"
+            android:textColor="@color/white_2"
+            app:layout_constraintBottom_toBottomOf="@+id/text_spent"
+            app:layout_constraintStart_toEndOf="@+id/text_spent"
+            app:layout_constraintTop_toTopOf="@+id/text_spent" />
+
+        <TextView
+            android:id="@+id/text_budget"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginStart="4dp"
+            android:text="Budget"
+            android:textColor="@color/white_2"
+            app:layout_constraintBottom_toBottomOf="@+id/of"
+            app:layout_constraintStart_toEndOf="@+id/of"
+            app:layout_constraintTop_toTopOf="@+id/of" />
+
+        <ImageView
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/text_left"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_left"
+            app:layout_constraintTop_toTopOf="@+id/text_left" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/banner_white"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-16dp"
+        android:background="@drawable/rect_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/text_expense_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="My Expense Today"
+        android:textStyle="bold"
+        android:textColor="@color/grey_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/banner_white"
+        app:layout_constraintTop_toTopOf="@+id/banner_white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_expense"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/banner_white"
+        app:layout_constraintEnd_toEndOf="@+id/banner_white"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/banner_white"
+        app:layout_constraintTop_toBottomOf="@+id/text_expense_today"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_outcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_outcome"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_add"
+        app:layout_constraintEnd_toEndOf="@+id/floating_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_income"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_outcome"
+        app:layout_constraintEnd_toEndOf="@+id/floating_outcome" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_recap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_recap"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_income"
+        app:layout_constraintEnd_toEndOf="@+id/floating_income" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
