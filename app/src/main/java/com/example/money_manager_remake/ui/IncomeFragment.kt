@@ -14,7 +14,11 @@ import com.example.money_manager_remake.data.application.Application
 import com.example.money_manager_remake.data.viewmodel.IncomeViewModel
 import com.example.money_manager_remake.data.viewmodel.IncomeViewModelFactory
 import com.example.money_manager_remake.databinding.FragmentIncomeBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import java.text.SimpleDateFormat
+import java.util.*
 
 class IncomeFragment : Fragment() {
 
@@ -34,6 +38,11 @@ class IncomeFragment : Fragment() {
             (activity?.application as Application).incomeDatabase.incomeDao()
         )
     }
+
+    // variable properties
+    private var d: Int = MainActivity.DATE
+    private var m: Int = MainActivity.MONTH
+    private var y: Int = MainActivity.YEAR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +64,11 @@ class IncomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // isFocusable for set auto-open datePicker dialog
         inputDate = binding.inputDate
+        inputDate.setText("$d-$m-$y")
+        inputDate.setOnClickListener { dateDialog() }
+
         inputIncome = binding.inputIncome
         btnAdd = binding.btnAddIncome
         btnAdd.text =
@@ -73,15 +86,15 @@ class IncomeFragment : Fragment() {
     private fun inputReceiver() {
         // check if input is valid
         if (viewModel.isEntryValid(
-                MainActivity.DATE,
-                MainActivity.MONTH,
-                MainActivity.YEAR,
+                d,
+                m,
+                y,
                 inputIncome.text.toString().toInt()
         )) {
             viewModel.addNewIncome(
-                MainActivity.DATE,
-                MainActivity.MONTH,
-                MainActivity.YEAR,
+                d,
+                m,
+                y,
                 inputIncome.text.toString().toInt()
             )
 
@@ -90,5 +103,39 @@ class IncomeFragment : Fragment() {
         } else {
             // TODO: toast error
         }
+    }
+
+    private fun dateDialog() {
+        // build date picker
+        val datePicker = MaterialDatePicker
+            .Builder
+            .datePicker()
+            .build()
+
+        datePicker.show(requireFragmentManager(), "DatePicker")
+
+        // Setting up the event for when ok is clicked
+        datePicker.addOnPositiveButtonClickListener {
+            // formatting date
+            val selectedDate = SimpleDateFormat(
+                "dd-MM-yyyy",
+                Locale.getDefault()
+            ).format(Date(it))
+
+            // show selected date to input layout
+            inputDate.hint = selectedDate.toString()
+
+            // split data
+            val dateParts = selectedDate.split("-")
+            d = dateParts[0].toInt()
+            m = dateParts[1].toInt()
+            y = dateParts[2].toInt()
+        }
+
+        // Setting up the event for when cancelled is clicked
+        datePicker.addOnNegativeButtonClickListener { }
+
+        // Setting up the event for when back button is pressed
+        datePicker.addOnCancelListener { }
     }
 }

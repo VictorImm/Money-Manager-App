@@ -14,7 +14,10 @@ import com.example.money_manager_remake.data.application.Application
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModel
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModelFactory
 import com.example.money_manager_remake.databinding.FragmentOutcomeBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OutcomeFragment : Fragment() {
 
@@ -35,6 +38,11 @@ class OutcomeFragment : Fragment() {
             (activity?.application as Application).outcomeDatabase.outcomeDao()
         )
     }
+
+    // variable properties
+    private var d: Int = MainActivity.DATE
+    private var m: Int = MainActivity.MONTH
+    private var y: Int = MainActivity.YEAR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +65,9 @@ class OutcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         inputDate = binding.inputDate
+        inputDate.setText("$d-$m-$y")
+        inputDate.setOnClickListener { dateDialog() }
+
         inputOutcome = binding.inputOutcome
         inputPrice = binding.inputPrice
 
@@ -70,17 +81,17 @@ class OutcomeFragment : Fragment() {
         Log.d("inputReceiver", "input is being checked")
         // check if entry is valid
         if (viewModel.isEntryValid(
-                MainActivity.DATE,
-                MainActivity.MONTH,
-                MainActivity.YEAR,
+                d,
+                m,
+                y,
                 inputOutcome.text.toString(),
                 inputPrice.text.toString().toInt()
         )) {
             Log.d("inputReceiver", "input try insert")
             viewModel.addNewOutcome(
-                MainActivity.DATE,
-                MainActivity.MONTH,
-                MainActivity.YEAR,
+                d,
+                m,
+                y,
                 type,
                 inputOutcome.text.toString(),
                 inputPrice.text.toString().toInt()
@@ -95,5 +106,39 @@ class OutcomeFragment : Fragment() {
         } else {
             // TODO: make some error toast
         }
+    }
+
+    private fun dateDialog() {
+        // build date picker
+        val datePicker = MaterialDatePicker
+            .Builder
+            .datePicker()
+            .build()
+
+        datePicker.show(requireFragmentManager(), "DatePicker")
+
+        // Setting up the event for when ok is clicked
+        datePicker.addOnPositiveButtonClickListener {
+            // formatting date
+            val selectedDate = SimpleDateFormat(
+                "dd-MM-yyyy",
+                Locale.getDefault()
+            ).format(Date(it))
+
+            // show selected date to input layout
+            inputDate.hint = selectedDate.toString()
+
+            // split data
+            val dateParts = selectedDate.split("-")
+            d = dateParts[0].toInt()
+            m = dateParts[1].toInt()
+            y = dateParts[2].toInt()
+        }
+
+        // Setting up the event for when cancelled is clicked
+        datePicker.addOnNegativeButtonClickListener { }
+
+        // Setting up the event for when back button is pressed
+        datePicker.addOnCancelListener { }
     }
 }
