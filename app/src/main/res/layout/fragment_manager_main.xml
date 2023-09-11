@@ -72,7 +72,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/banner_gradient"
             app:layout_constraintEnd_toEndOf="@+id/banner_gradient"
             app:layout_constraintStart_toStartOf="@+id/banner_gradient"
-            app:layout_constraintTop_toBottomOf="@+id/text_date" />
+            app:layout_constraintTop_toBottomOf="@+id/text_date"
+            android:progressTint="@color/white_2"/>
 
         <TextView
             android:id="@+id/text_spent"
