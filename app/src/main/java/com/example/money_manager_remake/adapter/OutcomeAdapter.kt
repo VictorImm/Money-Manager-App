@@ -1,14 +1,17 @@
 package com.example.money_manager_remake.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.money_manager_remake.R
 import com.example.money_manager_remake.data.outcome.Outcome
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModel
+import com.example.money_manager_remake.method.NumberFormatter
 
 class OutcomeAdapter(
     private val listOutcome: LiveData<List<Outcome>>
@@ -36,6 +39,7 @@ class OutcomeAdapter(
 
     override fun getItemCount(): Int = listOutcome.value?.size?:0
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: OutcomeAdapter.ListViewHolder, position: Int) {
         val expense = listOutcome.value?.get(position)
 
@@ -51,7 +55,7 @@ class OutcomeAdapter(
                     6 -> "Entertainment"
                     else -> "Other"
                 }
-            holder.tvPrice.text = "Rp ${expense.price}"
+            holder.tvPrice.text = "Rp ${NumberFormatter.format(expense.price)}"
         }
     }
 
