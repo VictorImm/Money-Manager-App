@@ -61,6 +61,26 @@ class OutcomeViewModel(private val outcomeDao: OutcomeDao): ViewModel() {
 
         return outcome
     }
+    fun calculateOutcomeType(listOutcome: List<Outcome>): HashMap<Int, Int> {
+        var outcome: HashMap<Int, Int> = hashMapOf(
+            1 to 0,
+            2 to 0,
+            3 to 0,
+            4 to 0,
+            5 to 0,
+            6 to 0,
+            7 to 0,
+            8 to 0
+        )
+
+
+        for (o in listOutcome) {
+            outcome[o.type] = outcome[o.type]!! + o.price
+        }
+        outcome[8] = outcome[8]!! + calculateOutcome(listOutcome)
+
+        return outcome
+    }
 }
 
 class OutcomeViewModelFactory(private val outcomeDao: OutcomeDao): ViewModelProvider.Factory {

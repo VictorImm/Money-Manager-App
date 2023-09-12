@@ -18,4 +18,8 @@ interface OutcomeDao {
     // select all from this month
     @Query("SELECT * from outcome WHERE m = :m AND y = :y")
     fun getTotal(m: Int, y: Int): Flow<List<Outcome>>
+
+    // select all from this month by type
+    @Query("SELECT * from outcome WHERE type = :type AND m = :m AND y = :y")
+    fun getTotalType(type: Int, m: Int, y: Int): Flow<List<Outcome>>
 }
