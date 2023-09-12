@@ -1,6 +1,7 @@
 package com.example.money_manager_remake.ui
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.money_manager_remake.MainActivity
+import com.example.money_manager_remake.MainRecapActivity
 import com.example.money_manager_remake.R
 import com.example.money_manager_remake.adapter.OutcomeAdapter
 import com.example.money_manager_remake.data.application.Application
@@ -178,6 +180,9 @@ class ManagerMain : Fragment() {
         }
         floatingRec.setOnClickListener {
             Toast.makeText(context, "Recap Button Clicked !", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this.context, MainRecapActivity::class.java)
+            startActivity(intent)
         }
     }
 
