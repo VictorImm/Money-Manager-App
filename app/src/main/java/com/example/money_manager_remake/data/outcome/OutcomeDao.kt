@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.money_manager_remake.data.DateDistinctResult
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,4 +23,8 @@ interface OutcomeDao {
     // select all from this month by type
     @Query("SELECT * from outcome WHERE type = :type AND m = :m AND y = :y")
     fun getTotalType(type: Int, m: Int, y: Int): Flow<List<Outcome>>
+
+    // select distinct date by month
+    @Query("SELECT d, price from outcome WHERE m = :m AND y = :y ORDER BY d ASC")
+    fun getDateDistinct(m: Int, y: Int): Flow<List<DateDistinctResult>>
 }
