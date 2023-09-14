@@ -121,7 +121,7 @@ class IncomeFragment : Fragment() {
             ).format(Date(it))
 
             // show selected date to input layout
-            inputDate.hint = selectedDate.toString()
+            inputDate.setText(selectedDate)
 
             // split data
             val dateParts = selectedDate.split("-")
