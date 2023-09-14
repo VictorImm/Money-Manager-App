@@ -1,16 +1,16 @@
 package com.example.money_manager_remake.ui
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.money_manager_remake.MainActivity
-import com.example.money_manager_remake.R
 import com.example.money_manager_remake.adapter.RecapAdapter
 import com.example.money_manager_remake.data.application.Application
 import com.example.money_manager_remake.data.viewmodel.IncomeViewModel
@@ -18,6 +18,10 @@ import com.example.money_manager_remake.data.viewmodel.IncomeViewModelFactory
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModel
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModelFactory
 import com.example.money_manager_remake.databinding.FragmentRecapMainBinding
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.BarGraphSeries
+import com.jjoe64.graphview.series.DataPoint
+import kotlinx.coroutines.flow.observeOn
 
 class RecapMain : Fragment() {
 
@@ -26,6 +30,7 @@ class RecapMain : Fragment() {
 
     // widgets
     private lateinit var rvType: RecyclerView
+    private lateinit var barGraph: GraphView
 
     // viewModel
     private val incomeViewModel: IncomeViewModel by viewModels {
@@ -53,6 +58,26 @@ class RecapMain : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // bind bar graph
+        barGraph = binding.barGraph
+        outcomeViewModel.retrieveOutcomeDaily(
+            MainActivity.MONTH,
+            MainActivity.YEAR
+        ).observe(this.viewLifecycleOwner) { outcomeList ->
+            val dataPointArray = outcomeViewModel.calculateOutcomeDaily(outcomeList)
+            val series = BarGraphSeries(
+                dataPointArray.toTypedArray()
+            )
+
+            barGraph.addSeries(series)
+        }
+        // styling
+        // activate horizontal zooming and scrolling
+        barGraph.viewport.isScalable = true
+
+        // activate horizontal scrolling
+        barGraph.viewport.isScrollable = true
 
         // bind recyclerview
         // TODO: set month retrieval is dynamic, by dropdown
