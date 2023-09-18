@@ -100,8 +100,7 @@ class OutcomeFragment : Fragment() {
             Log.d("inputReceiver", "input inserted")
 
             // moving fragment
-            val action = OutcomeFragmentDirections.actionOutcomeFragmentToManagerMain()
-            this.findNavController().navigate(action)
+            activity?.finish()
 
         } else {
             // TODO: make some error toast

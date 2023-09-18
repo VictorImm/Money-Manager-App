@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_income"
+    app:startDestination="@id/incomeFragment">
+
+    <fragment
+        android:id="@+id/incomeFragment"
+        android:name="com.example.money_manager_remake.ui.income.IncomeFragment"
+        android:label="My Income"
+        tools:layout="@layout/fragment_income" >
+        <argument
+            android:name="income_ mode"
+            app:argType="integer" />
+    </fragment>
+</navigation>

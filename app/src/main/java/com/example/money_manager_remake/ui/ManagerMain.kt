@@ -22,7 +22,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.money_manager_remake.MainActivity
-import com.example.money_manager_remake.MainRecapActivity
 import com.example.money_manager_remake.R
 import com.example.money_manager_remake.adapter.OutcomeAdapter
 import com.example.money_manager_remake.data.application.Application
@@ -32,6 +31,7 @@ import com.example.money_manager_remake.data.viewmodel.OutcomeViewModel
 import com.example.money_manager_remake.data.viewmodel.OutcomeViewModelFactory
 import com.example.money_manager_remake.databinding.FragmentManagerMainBinding
 import com.example.money_manager_remake.method.NumberFormatter
+import com.example.money_manager_remake.ui.income.IncomeMainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ManagerMain : Fragment() {
@@ -40,11 +40,6 @@ class ManagerMain : Fragment() {
     private lateinit var binding: FragmentManagerMainBinding
 
     // widgets
-    private lateinit var floatingAdd: FloatingActionButton
-    private lateinit var floatingOut: FloatingActionButton
-    private lateinit var floatingInc: FloatingActionButton
-    private lateinit var floatingRec: FloatingActionButton
-
     private lateinit var btnEdit: ImageView
     private lateinit var tvDate: TextView
     private lateinit var tvExpenseLeft: TextView
@@ -53,15 +48,7 @@ class ManagerMain : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var rvExpense: RecyclerView
 
-    // animation
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_open_anim) }
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.from_bottom) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.to_bottom) }
-
     // properties variable
-    private var clicked = false
-
     private var income: Int = 0
     private var outcome: Int = 0
 
@@ -93,11 +80,11 @@ class ManagerMain : Fragment() {
         // edit income if any
         btnEdit = binding.btnEdit
         btnEdit.setOnClickListener{
-            // TODO: add type, mau bertipe edit atau add
-            val action = ManagerMainDirections.actionManagerMainToIncomeFragment(
-                incomeMode = 1 // income edit mode
-            )
-            this.findNavController().navigate(action)
+            // set property, 1 = edit
+            IncomeMainActivity.inModeId = 1
+
+            val intent = Intent(requireContext(), IncomeMainActivity::class.java)
+            startActivity(intent)
         }
 
         // bind date and set date today
@@ -154,80 +141,6 @@ class ManagerMain : Fragment() {
             MainActivity.YEAR
         ).observe(this.viewLifecycleOwner) {
             showRecyclerList()
-        }
-
-        floatingAdd = binding.floatingAdd
-        floatingOut = binding.floatingOutcome
-        floatingInc = binding.floatingIncome
-        floatingRec = binding.floatingRecap
-
-        floatingAdd.setOnClickListener {
-            onAddButtonClick()
-        }
-        floatingOut.setOnClickListener {
-            Toast.makeText(context, "Outcome Button Clicked !", Toast.LENGTH_SHORT).show()
-            val action = ManagerMainDirections.actionManagerMainToTypeFragment()
-            this.findNavController().navigate(action)
-            clicked = false
-        }
-        floatingInc.setOnClickListener {
-            Toast.makeText(context, "Income Button Clicked !", Toast.LENGTH_SHORT).show()
-            val action = ManagerMainDirections.actionManagerMainToIncomeFragment(
-                incomeMode = 0 // income add mode
-            )
-            this.findNavController().navigate(action)
-            clicked = false
-        }
-        floatingRec.setOnClickListener {
-            Toast.makeText(context, "Recap Button Clicked !", Toast.LENGTH_SHORT).show()
-
-            val intent = Intent(this.context, MainRecapActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    private fun onAddButtonClick() {
-        setVisibility(clicked)
-        setAnimation(clicked)
-        setClickable(clicked)
-        clicked = !clicked
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if (!clicked) {
-            floatingOut.visibility = View.VISIBLE
-            floatingInc.visibility = View.VISIBLE
-            floatingRec.visibility = View.VISIBLE
-        } else {
-            floatingOut.visibility = View.INVISIBLE
-            floatingInc.visibility = View.INVISIBLE
-            floatingRec.visibility = View.INVISIBLE
-        }
-    }
-
-    private fun setAnimation(clicked: Boolean) {
-        if (!clicked) {
-            floatingOut.startAnimation(fromBottom)
-            floatingInc.startAnimation(fromBottom)
-            floatingRec.startAnimation(fromBottom)
-            floatingAdd.startAnimation(rotateOpen)
-        } else {
-            floatingOut.startAnimation(toBottom)
-            floatingInc.startAnimation(toBottom)
-            floatingRec.startAnimation(toBottom)
-            floatingAdd.startAnimation(rotateClose)
-        }
-    }
-
-    private fun setClickable(clicked: Boolean) {
-        if (!clicked) {
-            floatingOut.isClickable = true
-            floatingInc.isClickable = true
-            floatingRec.isClickable = true
-        } else {
-            floatingOut.isClickable = false
-            floatingInc.isClickable = false
-            floatingRec.isClickable = false
         }
     }
 

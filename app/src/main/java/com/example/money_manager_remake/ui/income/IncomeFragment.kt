@@ -45,9 +45,8 @@ class IncomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            inModeId = IncomeFragmentArgs.fromBundle(it).incomeMode
-        }
+        // get argument from IncomeMainActivity
+        inModeId = IncomeMainActivity.inModeId
     }
 
     override fun onCreateView(
@@ -96,8 +95,8 @@ class IncomeFragment : Fragment() {
                 inputIncome.text.toString().toInt()
             )
 
-            val action = IncomeFragmentDirections.actionIncomeFragmentToManagerMain()
-            this.findNavController().navigate(action)
+            // back to main page
+            activity?.finish()
         } else {
             // TODO: toast error
         }
