@@ -1,3 +1,3 @@
 # Money-Manager-App
 
-![5](https://github.com/VictorImm/Money-Manager-App/assets/94304163/550356b7-8ae1-4854-8f14-a97c2d487361)
+![3](https://github.com/VictorImm/Money-Manager-App/assets/94304163/361ceb67-60f9-4cb9-8dbb-065ad90e1374)
